@@ -15,10 +15,10 @@
       stylesheets="@styles/login.css">
 
     <Text fx:id="loginTitle" text="Вход в аккаунт"/>
-    <Label fx:id="errorLabel" text="Введите данные для входа" textFill="red" visible="false"/>
+    <Label fx:id="errorLabel" textFill="red"/>
     <TextField fx:id="loginField" promptText="Ваш логин..." />
     <PasswordField fx:id="loginPassword" promptText="Введите пароль..." />
-    <Button fx:id="loginButton" text="Войти" onAction="#login"/>
+    <Button fx:id="loginButton" text="Войти" onAction="#login" styleClass="TESTBUTTON"/>
     <TextFlow>
         <Text text="Нет аккаунта?" />
         <Hyperlink text="Регистрация" onAction="#switchToRegister" />

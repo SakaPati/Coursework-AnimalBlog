@@ -13,7 +13,7 @@
       prefHeight="400.0" prefWidth="600.0">
 
     <Text fx:id="registerTitle" text="Регистрация"/>
-    <Label fx:id="errorLabel" text="Введите данные для регистрации!" textFill="red" visible="false"/>
+    <Label fx:id="errorLabel" textFill="red"/>
     <TextField fx:id="registerLogin" promptText="Введите логин..."/>
     <PasswordField fx:id="registerPassword" promptText="Ваш пароль..."/>
     <PasswordField fx:id="repeatPassword" promptText="Повторите пароль..."/>

@@ -2,6 +2,7 @@ package io.github.fozeton.blog.server;
 
 import io.github.fozeton.blog.server.exceptions.ErrorMessage;
 import io.github.fozeton.blog.server.exceptions.UserAlreadyExistsException;
+import io.github.fozeton.blog.server.exceptions.UserAuthenticationException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -26,6 +27,12 @@ public class ApiExceptionHandler {
 
     @ExceptionHandler(UserAlreadyExistsException.class)
     public ResponseEntity<ErrorMessage> handleUserExists(UserAlreadyExistsException ex) {
+        log.error(ex.getMessage(), ex);
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new ErrorMessage(ex.getMessage()));
+    }
+
+    @ExceptionHandler(UserAuthenticationException.class)
+    public ResponseEntity<ErrorMessage> handleAuthErrors(UserAuthenticationException ex) {
         log.error(ex.getMessage(), ex);
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new ErrorMessage(ex.getMessage()));
     }
