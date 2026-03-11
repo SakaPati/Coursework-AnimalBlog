@@ -1,14 +1,34 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
 <?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Text?>
+<VBox xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="io.github.fozeton.blog.controllers.CreatingPost"
+      stylesheets="@styles/creatingPost.css">
 
-<AnchorPane xmlns="http://javafx.com/javafx"
-            xmlns:fx="http://javafx.com/fxml"
-            fx:controller="$CONTROLLER_NAME$"
-            prefHeight="400.0" prefWidth="600.0" >
+    <Text fx:id="title" text="Создай новый пост"/>
+    <Label fx:id="errorLabel" textFill="red"/>
 
-</AnchorPane>
+    <Text fx:id="heroTitle" text="Заголовок"/>
+    <TextField fx:id="titleInput"/>
+
+    <StackPane fx:id="imageContainer">
+        <VBox fx:id="uploadPlaceholder">
+            <ImageView fx:id="iconView">
+                <Image url="static/icons/selectedPhoto.png"/>
+            </ImageView>
+            <Button fx:id="selectImageBtn" onAction="#selectedImage" text="Выбрать изображение"/>
+        </VBox>
+
+        <ImageView fx:id="postPreview" preserveRatio="true" fitWidth="500" fitHeight="500"/>
+    </StackPane>
+
+    <Text fx:id="description" text="Описание"/>
+    <TextField fx:id="descriptionInput"/>
+
+    <Button fx:id="createPostBtn" onAction="#creatingPost" text="Создать пост"/>
+</VBox>

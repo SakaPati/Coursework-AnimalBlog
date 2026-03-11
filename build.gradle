@@ -18,18 +18,16 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
     implementation "org.springframework.boot:spring-boot-starter-security"
     implementation 'com.google.code.gson:gson:2.13.2'
+    implementation 'com.squareup.okhttp3:okhttp:5.3.2'
+    implementation 'io.jsonwebtoken:jjwt:0.13.0'
     compileOnly("org.projectlombok:lombok:1.18.42")
     annotationProcessor("org.projectlombok:lombok:1.18.42")
     runtimeOnly 'com.mysql:mysql-connector-j'
 }
 
-test {
-    useJUnitPlatform()
-}
-
 javafx {
     version = "21.0.2"
-    modules = ['javafx.controls', 'javafx.fxml']
+    modules = ['javafx.controls', 'javafx.fxml', 'javafx.swing']
 }
 
 application {

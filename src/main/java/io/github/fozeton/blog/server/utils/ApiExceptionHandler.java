@@ -1,8 +1,6 @@
-package io.github.fozeton.blog.server;
+package io.github.fozeton.blog.server.utils;
 
-import io.github.fozeton.blog.server.exceptions.ErrorMessage;
-import io.github.fozeton.blog.server.exceptions.UserAlreadyExistsException;
-import io.github.fozeton.blog.server.exceptions.UserAuthenticationException;
+import io.github.fozeton.blog.server.exceptions.*;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -20,20 +18,44 @@ public class ApiExceptionHandler {
         log.error(ex.getMessage(), ex);
         FieldError error = ex.getBindingResult().getFieldError();
         if (error != null) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new ErrorMessage(error.getDefaultMessage()));
+            return ResponseEntity.badRequest().body(new ErrorMessage(error.getDefaultMessage()));
         }
-        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new ErrorMessage("Unknown validation error"));
+        return ResponseEntity.badRequest().body(new ErrorMessage("Unknown validation error"));
     }
 
     @ExceptionHandler(UserAlreadyExistsException.class)
     public ResponseEntity<ErrorMessage> handleUserExists(UserAlreadyExistsException ex) {
         log.error(ex.getMessage(), ex);
-        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new ErrorMessage(ex.getMessage()));
+        return ResponseEntity.badRequest().body(new ErrorMessage(ex.getMessage()));
     }
 
     @ExceptionHandler(UserAuthenticationException.class)
     public ResponseEntity<ErrorMessage> handleAuthErrors(UserAuthenticationException ex) {
         log.error(ex.getMessage(), ex);
-        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new ErrorMessage(ex.getMessage()));
+        return ResponseEntity.badRequest().body(new ErrorMessage(ex.getMessage()));
+    }
+
+    @ExceptionHandler(UserAvatarFailedChangeException.class)
+    public ResponseEntity<ErrorMessage> handleSaveFileErrors(UserAuthenticationException ex) {
+        log.error(ex.getMessage(), ex);
+        return ResponseEntity.badRequest().body(new ErrorMessage(ex.getMessage()));
+    }
+
+    @ExceptionHandler(UserNotFoundException.class)
+    public ResponseEntity<ErrorMessage> handleUserNotFoundErrors(UserNotFoundException ex) {
+        log.error(ex.getMessage(), ex);
+        return ResponseEntity.badRequest().body(new ErrorMessage(ex.getMessage()));
+    }
+
+    @ExceptionHandler(PostCreationException.class)
+    public ResponseEntity<ErrorMessage> handlePostCreatingErrors(PostCreationException ex) {
+        log.error(ex.getMessage(), ex);
+        return ResponseEntity.badRequest().body(new ErrorMessage(ex.getMessage()));
+    }
+
+    @ExceptionHandler(InvalidTokenException.class)
+    public ResponseEntity<ErrorMessage> handleInvalidTokenErrors(InvalidTokenException ex) {
+        log.error(ex.getMessage(), ex);
+        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(new ErrorMessage("Unauthorized user"));
     }
 }

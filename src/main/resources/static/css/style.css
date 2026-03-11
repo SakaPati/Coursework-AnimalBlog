@@ -1,0 +1,221 @@
+:root {
+  --primary-color: #84cc16;
+  --bright-lime-color: #a3e635;
+  --light-lime-color: #d9f99d;
+  --background-color: #ffffff;
+  --light-gray-color: #f5f5f5;
+  --dark-gray-color: #1f2937;
+  --gray-text-color: #6b7280;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: "Poppins", sans-serif;
+  background: #ffffff;
+  color: #1f2937;
+}
+
+ul {
+  list-style: none;
+}
+
+img {
+  width: 100%;
+  display: block;
+  border-radius: 12px;
+}
+
+
+.container {
+  max-width: 1100px;
+  margin: auto;
+  padding: 0 20px;
+}
+
+
+.header {
+  background: white;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+}
+
+.header .container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 0;
+}
+
+.header__title {
+  font-size: 28px;
+  font-weight: 700;
+}
+
+.header__title span {
+  color: #84cc16;
+}
+
+.header__nav-list {
+  display: flex;
+  gap: 30px;
+}
+
+.nav__list-item {
+  cursor: pointer;
+  font-weight: 500;
+  position: relative;
+  transition: 0.3s;
+}
+
+.nav__list-item:hover {
+  color: #84cc16;
+}
+
+.nav__list-item::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -5px;
+  width: 0;
+  height: 3px;
+  background: #84cc16;
+  transition: 0.3s;
+  border-radius: 3px;
+}
+
+.nav__list-item:hover::after {
+  width: 100%;
+}
+
+.hero {
+  padding: 80px 0;
+}
+.hero .container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 60px;
+}
+.hero__title {
+  font-size: 33px;
+  margin-bottom: 20px;
+}
+
+.header__span {
+  color: #84cc16;
+}
+
+.hero__info {
+  max-width: 500px;
+  color: #6b7280;
+  line-height: 1.6;
+  margin-bottom: 30px;
+}
+
+.hero__btn {
+  background: #84cc16;
+  color: white;
+  border: none;
+  padding: 16px 28px;
+  border-radius: 12px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  display: inline-block;
+  transition: 0.25s;
+  box-shadow: 0 0 10px rgba(132, 204, 22, 0.4);
+  margin-left: 420px;
+}
+
+.hero__btn small {
+  display: block;
+  font-size: 12px;
+  opacity: 0.8;
+}
+
+.hero__btn:hover {
+  background: #a3e635;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 18px rgba(132, 204, 22, 0.4);
+}
+
+/* ===== Images ===== */
+
+.hero__images {
+  position: relative;
+  width: 520px;
+  height: 220px;
+  margin-top: 0;
+}
+
+.hero__images-list {
+  position: relative;
+  height: 100%;
+}
+
+.hero__images-items {
+  position: absolute;
+  width: 180px;
+}
+
+.hero__images-items img {
+  height: 150px;
+  object-fit: cover;
+  border-radius: 16px;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+}
+.hero__images-items:nth-child(1){
+left: 100px;
+top: 200px;
+}
+
+.hero__images-items:nth-child(3){
+left:10px;
+top:100px;
+}
+
+.hero__images-items:nth-child(5){
+left:-240px;
+top:40px;
+}
+
+/* ===== Footer ===== */
+
+footer {
+  margin-top: 80px;
+  padding: 30px 0;
+}
+
+footer .container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.footer__info {
+  font-size: 14px;
+  color: #6b7280;
+}
+
+.footer__list {
+  display: flex;
+  gap: 20px;
+}
+
+.footer__list-item {
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.footer__list-item svg {
+  transition: 0.3s;
+}
+
+.footer__list-item:hover svg {
+  transform: scale(1.2);
+  fill: #a3e635;
+}

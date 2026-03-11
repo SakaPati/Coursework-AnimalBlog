@@ -1,7 +1,7 @@
 package io.github.fozeton.blog.server.exceptions;
 
-public class UserDoesNotExistException extends RuntimeException {
-    public UserDoesNotExistException(String message) {
+public class UserAuthenticationException extends RuntimeException {
+    public UserAuthenticationException(String message) {
         super(message);
     }
 }

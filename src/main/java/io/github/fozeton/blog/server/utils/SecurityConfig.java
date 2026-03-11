@@ -1,4 +1,4 @@
-package io.github.fozeton.blog.server;
+package io.github.fozeton.blog.server.utils;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

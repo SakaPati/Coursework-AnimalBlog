@@ -1,22 +1,24 @@
 package io.github.fozeton.blog.controllers;
 
+import com.google.gson.Gson;
+import io.github.fozeton.blog.dto.ErrorMessage;
+import io.github.fozeton.blog.dto.User;
+import io.github.fozeton.blog.utils.RequestUtil;
+import io.github.fozeton.blog.utils.SwitcherScene;
 import javafx.event.ActionEvent;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Node;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
-import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
-import javafx.stage.Stage;
 
-import java.io.IOException;
+import java.net.URI;
+import java.net.http.HttpResponse;
 
 public class Login {
-
+    private final Gson gson = new Gson();
+    private final RequestUtil request = new RequestUtil();
+    private final SwitcherScene switcherScene = new SwitcherScene();
     public Text loginTitle;
     public TextField loginField;
     public PasswordField loginPassword;
@@ -27,20 +29,18 @@ public class Login {
         String login = loginField.getText();
         String password = loginPassword.getText();
         if (!login.isEmpty() && !password.isEmpty()) {
-            System.out.println("ABOBA");
-        } else errorLabel.setVisible(true);
+            User user = new User(login, password);
+            HttpResponse<String> response = request.sendPost(URI.create("http://localhost:8080/api/users/login"), gson.toJson(user));
+            if (response.statusCode() >= 400) {
+                ErrorMessage message = gson.fromJson(response.body(), ErrorMessage.class);
+                errorLabel.setText(message.getError());
+                return;
+            }
+            switcherScene.switchScene(event, "creatingPost", "AnimalBlog: Post created");
+        } else errorLabel.setText("Введите данные для входа");
     }
 
-    public void switchToRegister(ActionEvent event) throws IOException {
-        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-
-        FXMLLoader loader = new FXMLLoader();
-        loader.setLocation(getClass().getResource("/io/github/fozeton/blog/register.fxml"));
-        VBox vBox = loader.load();
-        Scene register = new Scene(vBox);
-
-        stage.setTitle("AnimalBlog: Register");
-        stage.setScene(register);
-        stage.show();
+    public void switchToRegister(ActionEvent event) {
+        switcherScene.switchScene(event, "register", "AnimalBlog: Register");
     }
 }
