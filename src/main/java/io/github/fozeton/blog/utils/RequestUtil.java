@@ -34,6 +34,13 @@ public class RequestUtil {
                 .build();
         return send(request);
     }
+    public HttpResponse<String> sendGet(URI uri) {
+        HttpRequest request = HttpRequest.newBuilder()
+                .uri(uri)
+                .GET()
+                .build();
+        return send(request);
+    }
 
     public void sendPostMultipart(String url, Image image, Consumer<String> onSuccess, Consumer<String> onError, Map<String, String> params) {
         String fileName = image.getUrl();
@@ -87,11 +94,7 @@ public class RequestUtil {
     }
 
     private HttpResponse<String> send(HttpRequest request) {
-        try (
-                HttpClient client = HttpClient.newBuilder()
-                        .connectTimeout(Duration.ofSeconds(30))
-                        .build()
-        ) {
+        try (HttpClient client = HttpClient.newBuilder().connectTimeout(Duration.ofSeconds(30)).build()) {
             return client.send(request, HttpResponse.BodyHandlers.ofString());
         } catch (IOException | InterruptedException e) {
             throw new RuntimeException(e);

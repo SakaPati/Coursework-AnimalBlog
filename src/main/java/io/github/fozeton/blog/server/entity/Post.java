@@ -23,6 +23,9 @@ public class Post {
     @Column(name = "title", nullable = false)
     private String title;
 
+    @Column(name = "author", nullable = false)
+    private String author;
+
     @Column(nullable = false)
     private String imageUrl;
 
@@ -40,8 +43,4 @@ public class Post {
     @Setter(AccessLevel.NONE)
     @Column(updatable = false)
     private LocalDateTime createAt = LocalDateTime.now();
-
-    @ManyToOne
-    @JoinColumn(name = "user_id")
-    private User user;
 }

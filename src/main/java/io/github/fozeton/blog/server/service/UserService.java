@@ -31,6 +31,7 @@ public class UserService {
 
         User user = new User();
         user.setUserName(userDto.getUserName());
+        user.setAvatarUrl("");
         user.setPassword(encoder.encode(userDto.getPassword()));
 
         userRepository.save(user);

@@ -2,7 +2,8 @@ package io.github.fozeton.blog.controllers;
 
 import com.google.gson.Gson;
 import io.github.fozeton.blog.dto.ErrorMessage;
-import io.github.fozeton.blog.dto.User;
+import io.github.fozeton.blog.dto.SuccessfulMessage;
+import io.github.fozeton.blog.dto.UserDto;
 import io.github.fozeton.blog.utils.RequestUtil;
 import io.github.fozeton.blog.utils.SwitcherScene;
 import javafx.event.ActionEvent;
@@ -29,14 +30,16 @@ public class Login {
         String login = loginField.getText();
         String password = loginPassword.getText();
         if (!login.isEmpty() && !password.isEmpty()) {
-            User user = new User(login, password);
-            HttpResponse<String> response = request.sendPost(URI.create("http://localhost:8080/api/users/login"), gson.toJson(user));
+            UserDto userDto = new UserDto(login, password);
+            HttpResponse<String> response = request.sendPost(URI.create("http://localhost:8080/api/users/login"), gson.toJson(userDto));
             if (response.statusCode() >= 400) {
                 ErrorMessage message = gson.fromJson(response.body(), ErrorMessage.class);
                 errorLabel.setText(message.getError());
                 return;
             }
-            switcherScene.switchScene(event, "creatingPost", "AnimalBlog: Post created");
+            SuccessfulMessage jwt = gson.fromJson(response.body(), SuccessfulMessage.class);
+            RequestUtil.setHeader(jwt.getMessage());
+            switcherScene.switchScene(event, "feed", "AnimalBlog: Post created");
         } else errorLabel.setText("Введите данные для входа");
     }
 

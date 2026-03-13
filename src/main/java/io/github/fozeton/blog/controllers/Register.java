@@ -2,8 +2,7 @@ package io.github.fozeton.blog.controllers;
 
 import com.google.gson.Gson;
 import io.github.fozeton.blog.dto.ErrorMessage;
-import io.github.fozeton.blog.dto.SuccessfulMessage;
-import io.github.fozeton.blog.dto.User;
+import io.github.fozeton.blog.dto.UserDto;
 import io.github.fozeton.blog.utils.RequestUtil;
 import io.github.fozeton.blog.utils.SwitcherScene;
 import javafx.event.ActionEvent;
@@ -40,15 +39,13 @@ public class Register {
                 errorLabel.setText("Согласитесь с обработкой персональных данных!");
                 return;
             }
-            User user = new User(login, password);
-            HttpResponse<String> response = request.sendPost(URI.create("http://localhost:8080/api/users/register"), gson.toJson(user));
+            UserDto userDto = new UserDto(login, password);
+            HttpResponse<String> response = request.sendPost(URI.create("http://localhost:8080/api/users/register"), gson.toJson(userDto));
             if (response.statusCode() >= 400) {
                 ErrorMessage message = gson.fromJson(response.body(), ErrorMessage.class);
                 errorLabel.setText(message.getError());
                 return;
             }
-            SuccessfulMessage jwt = gson.fromJson(response.body(), SuccessfulMessage.class);
-            RequestUtil.setHeader(jwt.getMessage());
             errorLabel.setVisible(false);
             switcherScene.switchScene(event, "login", "AnimalBlog: Login");
         } else errorLabel.setText("Введите данные для регистрации!");

@@ -81,7 +81,7 @@ public class CreatingPost {
                     "author", jwt.getSubject()
             );
 
-            request.sendPostMultipart("http://localhost:8080/api/users/creating", postPreview.getImage(), System.out::println, System.out::println, params);
+            request.sendPostMultipart("http://localhost:8080/api/posts/creating", postPreview.getImage(), System.out::println, System.out::println, params);
 
         } catch (IOException | NoSuchAlgorithmException | InvalidKeySpecException e) {
             throw new RuntimeException(e);

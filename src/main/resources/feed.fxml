@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.*?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.ListView?>
+<BorderPane xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="io.github.fozeton.blog.controllers.FeedController"
+            prefHeight="400.0" prefWidth="600.0">
+    <top>
+        <HBox>
+            <Button>
+                <graphic>
+                    <ImageView fx:id="profile"/>
+                </graphic>
+            </Button>
+
+            <TextField />
+            <Button>
+                <graphic>
+                    <ImageView fitWidth="15" fitHeight="15">
+                        <Image url="@static/icons/search.png"/>
+                    </ImageView>
+                </graphic>
+            </Button>
+        </HBox>
+    </top>
+
+    <center>
+        <ListView fx:id="feedList"/>
+    </center>
+
+</BorderPane>

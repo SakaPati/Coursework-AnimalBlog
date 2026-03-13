@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Text?>
+<VBox xmlns="http://javafx.com/javafx"
+      xmlns:fx="http://javafx.com/fxml"
+      fx:controller="io.github.fozeton.blog.controllers.PostItemController"
+      prefHeight="400.0" prefWidth="600.0">
+
+    <Text fx:id="postAuthor"/>
+
+    <Text fx:id="postTitle"/>
+    <ImageView fx:id="postImage"/>
+    <Text fx:id="postContent"/>
+
+    <HBox>
+        <Button onAction="#handleLikeClick">
+            <graphic>
+                <ImageView fx:id="postLike">
+                    <Image url="@static/icons/like.png"/>
+                </ImageView>
+            </graphic>
+        </Button>
+        <Button fx:id="postComment">
+            <graphic>
+                <ImageView>
+                    <Image url="@static/icons/comment.png"/>
+                </ImageView>
+            </graphic>
+        </Button>
+    </HBox>
+
+    <VBox fx:id="commentsContainer"/>
+</VBox>
