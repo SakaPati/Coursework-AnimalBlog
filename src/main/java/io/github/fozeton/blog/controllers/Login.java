@@ -39,7 +39,7 @@ public class Login {
             }
             SuccessfulMessage jwt = gson.fromJson(response.body(), SuccessfulMessage.class);
             RequestUtil.setHeader(jwt.getMessage());
-            switcherScene.switchScene(event, "feed", "AnimalBlog: Post created");
+            switcherScene.switchScene(event, "feed", "AnimalBlog: Post feed");
         } else errorLabel.setText("Введите данные для входа");
     }
 

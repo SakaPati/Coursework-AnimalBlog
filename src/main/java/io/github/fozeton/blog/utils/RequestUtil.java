@@ -1,5 +1,7 @@
 package io.github.fozeton.blog.utils;
 
+import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.Jwts;
 import javafx.application.Platform;
 import javafx.embed.swing.SwingFXUtils;
 import javafx.scene.image.Image;
@@ -16,6 +18,13 @@ import java.net.URI;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.security.KeyFactory;
+import java.security.NoSuchAlgorithmException;
+import java.security.PublicKey;
+import java.security.spec.InvalidKeySpecException;
+import java.security.spec.X509EncodedKeySpec;
 import java.time.Duration;
 import java.util.Map;
 import java.util.function.Consumer;
@@ -26,6 +35,14 @@ public class RequestUtil {
     private static String header;
     private final OkHttpClient client = new OkHttpClient();
 
+    public HttpResponse<String> sendPost(URI uri) {
+        HttpRequest request = HttpRequest.newBuilder()
+                .uri(uri)
+                .POST(HttpRequest.BodyPublishers.noBody())
+                .build();
+        return send(request);
+    }
+
     public HttpResponse<String> sendPost(URI uri, String json) {
         HttpRequest request = HttpRequest.newBuilder()
                 .uri(uri)
@@ -34,6 +51,7 @@ public class RequestUtil {
                 .build();
         return send(request);
     }
+
     public HttpResponse<String> sendGet(URI uri) {
         HttpRequest request = HttpRequest.newBuilder()
                 .uri(uri)
@@ -91,6 +109,27 @@ public class RequestUtil {
                 });
             }
         });
+    }
+
+    public Image getPostImage(String path) {
+        return new Image("http://localhost:8080/api/posts/images/" + path, true);
+    }
+
+    public Image getAvatarImage(String path) {
+        return new Image("http://localhost:8080/api/users/avatar/" + path, true);
+    }
+
+    public String getUserName() {
+        try {
+            byte[] keyByte = Files.readAllBytes(Paths.get("token.pub"));
+            X509EncodedKeySpec spec = new X509EncodedKeySpec(keyByte);
+            KeyFactory kf = KeyFactory.getInstance("RSA");
+            PublicKey publicKey = kf.generatePublic(spec);
+
+            return Jwts.parser().verifyWith(publicKey).build().parseSignedClaims(RequestUtil.getHeader()).getPayload().getSubject();
+        } catch (IOException | InvalidKeySpecException | NoSuchAlgorithmException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     private HttpResponse<String> send(HttpRequest request) {

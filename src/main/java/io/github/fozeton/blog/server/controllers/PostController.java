@@ -1,6 +1,7 @@
 package io.github.fozeton.blog.server.controllers;
 
-import io.github.fozeton.blog.server.dto.PostDto;
+import io.github.fozeton.blog.server.dto.PostRequestDto;
+import io.github.fozeton.blog.server.dto.PostResponseDto;
 import io.github.fozeton.blog.server.entity.Post;
 import io.github.fozeton.blog.server.service.JwtService;
 import io.github.fozeton.blog.server.service.PostService;
@@ -24,20 +25,28 @@ public class PostController {
     }
 
     @PostMapping("/creating")
-    private ResponseEntity<SuccessfulMessage> creating(@Valid @ModelAttribute PostDto post) {
-
+    private ResponseEntity<SuccessfulMessage> creating(@Valid @ModelAttribute PostRequestDto post) {
         postService.createPost(post);
         return ResponseEntity.status(HttpStatus.OK).body(new SuccessfulMessage("Post created successfully"));
     }
 
     @GetMapping("/feed")
-    public ResponseEntity<SuccessfulMessage> feed(@RequestParam(name = "page") int page) {
-        List<Post> posts = postService.getPostsByPage(page);
+    public ResponseEntity<SuccessfulMessage> feed(@RequestParam(value = "page", required = false, defaultValue = "0") int page, @RequestParam(value = "search", required = false) String query, @RequestParam(value = "user") String user) {
+        List<PostResponseDto> posts;
+        if (query == null || query.isEmpty()) posts = postService.getPostsByPage(page, user);
+        else posts = postService.getPostsBySort(page, query, user);
         return ResponseEntity.status(HttpStatus.OK).body(new SuccessfulMessage("successfully", posts));
     }
 
-    @GetMapping("/images/{type}/{path}")
-    public ResponseEntity<byte[]> images(@PathVariable String path, @PathVariable String type) {
-        return postService.getImage(path, type);
+    @GetMapping("/images/{path}")
+    public ResponseEntity<byte[]> images(@PathVariable String path) {
+        return postService.getImage(path);
+    }
+
+    @PostMapping("/{postId}/{userName}/like")
+    public ResponseEntity<Integer> like(@PathVariable String userName, @PathVariable long postId) {
+        postService.setLike(userName, postId);
+        int likesCount = postService.getLikes(postId);
+        return ResponseEntity.ok(likesCount);
     }
 }

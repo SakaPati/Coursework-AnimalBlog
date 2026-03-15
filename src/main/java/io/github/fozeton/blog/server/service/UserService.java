@@ -8,17 +8,20 @@ import io.github.fozeton.blog.server.exceptions.UserAuthenticationException;
 import io.github.fozeton.blog.server.exceptions.UserAvatarFailedChangeException;
 import io.github.fozeton.blog.server.exceptions.UserNotFoundException;
 import io.github.fozeton.blog.server.repository.UserRepository;
-import io.github.fozeton.blog.server.utils.SavedFile;
+import io.github.fozeton.blog.server.utils.FileUtils;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 
 
 @Service
 public class UserService {
     private final BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
-    private final SavedFile savedFile = new SavedFile();
+    private final FileUtils fileUtils = new FileUtils();
     private final UserRepository userRepository;
 
     public UserService(UserRepository userRepository) {
@@ -31,7 +34,7 @@ public class UserService {
 
         User user = new User();
         user.setUserName(userDto.getUserName());
-        user.setAvatarUrl("");
+        user.setAvatarUrl("defaultAccountAvatar.png");
         user.setPassword(encoder.encode(userDto.getPassword()));
 
         userRepository.save(user);
@@ -51,7 +54,7 @@ public class UserService {
     public void setAvatar(UploadFileDto file) {
         try {
             User user = userRepository.findByUserName(file.getUserName());
-            String savedAvatar = savedFile.saveFile(file.getImg(), "avatars");
+            String savedAvatar = fileUtils.saveFile(file.getImg(), "avatars");
             if (savedAvatar.isEmpty()) throw new UserAvatarFailedChangeException("Failed to change avatar");
             if(user == null) throw new UserNotFoundException("User not found");
             user.setAvatarUrl(savedAvatar);
@@ -59,4 +62,16 @@ public class UserService {
             throw new RuntimeException(e);
         }
     }
+
+    public ResponseEntity<byte[]> getAvatar(String userName) {
+        String path = userRepository.findUserAvatarUrlByUserName(userName);
+        try{
+            Path imgPath = Paths.get("images/avatars/" + path);
+            return fileUtils.getResponseEntity(imgPath);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+
 }

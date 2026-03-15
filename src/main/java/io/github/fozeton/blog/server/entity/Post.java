@@ -20,6 +20,9 @@ public class Post {
     @Column(updatable = false)
     private Long id;
 
+    @Column(name = "userAvatar", nullable = false)
+    private String userAvatar = "defaultAccountAvatar.png";
+
     @Column(name = "title", nullable = false)
     private String title;
 
@@ -33,8 +36,8 @@ public class Post {
     private String content;
 
     @Setter(AccessLevel.NONE)
-    @Column(updatable = false)
-    private Integer likes = 0;
+    @OneToMany(mappedBy = "post", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Like> likes = new ArrayList<>();
 
     @Setter(AccessLevel.NONE)
     @OneToMany(mappedBy = "post", cascade = CascadeType.ALL, orphanRemoval = true)

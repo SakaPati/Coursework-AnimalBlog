@@ -41,10 +41,10 @@ public class ApiExceptionHandler {
         return ResponseEntity.badRequest().body(new ErrorMessage(ex.getMessage()));
     }
 
-    @ExceptionHandler(UserNotFoundException.class)
-    public ResponseEntity<ErrorMessage> handleUserNotFoundErrors(UserNotFoundException ex) {
+    @ExceptionHandler({UserNotFoundException.class, PostNotFoundException.class})
+    public ResponseEntity<ErrorMessage> handleUserNotFoundErrors(Exception ex) {
         log.error(ex.getMessage(), ex);
-        return ResponseEntity.badRequest().body(new ErrorMessage(ex.getMessage()));
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ErrorMessage(ex.getMessage()));
     }
 
     @ExceptionHandler(PostCreationException.class)

@@ -7,6 +7,7 @@ import io.github.fozeton.blog.server.utils.ErrorMessage;
 import io.github.fozeton.blog.server.utils.SuccessfulMessage;
 import io.jsonwebtoken.Jwts;
 import jakarta.validation.Valid;
+import jakarta.websocket.server.PathParam;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -57,5 +58,10 @@ public class UserController {
         else return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new ErrorMessage("Unknown upload type"));
 
         return ResponseEntity.status(HttpStatus.OK).body(new SuccessfulMessage("Avatar successfully changed"));
+    }
+
+    @GetMapping("/avatar/{userName}")
+    private ResponseEntity<byte[]> avatarMe(@PathVariable String userName) {
+        return userService.getAvatar(userName);
     }
 }
