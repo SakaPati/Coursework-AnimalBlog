@@ -1,26 +1,35 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.control.*?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Text?>
-<?import javafx.scene.control.TextField?>
-<?import javafx.scene.control.PasswordField?>
-<?import javafx.scene.control.Button?>
 <?import javafx.scene.text.TextFlow?>
-<?import javafx.scene.control.Hyperlink?>
-<?import javafx.scene.control.Label?>
+<?import java.net.URL?>
+
 <VBox xmlns="http://javafx.com/javafx"
       xmlns:fx="http://javafx.com/fxml"
-      fx:controller="io.github.fozeton.blog.controllers.Login"
-      prefHeight="400.0" prefWidth="600.0"
-      stylesheets="@styles/login.css">
+      fx:controller="client.io.github.fozeton.blog.controllers.Login"
+      prefHeight="400.0" prefWidth="400.0"
+      styleClass="root-container">
 
-    <Text fx:id="loginTitle" text="Вход в аккаунт"/>
-    <Label fx:id="errorLabel" textFill="red"/>
-    <TextField fx:id="loginField" promptText="Ваш логин..." />
-    <PasswordField fx:id="loginPassword" promptText="Введите пароль..." />
-    <Button fx:id="loginButton" text="Войти" onAction="#login" styleClass="TESTBUTTON"/>
-    <TextFlow>
-        <Text text="Нет аккаунта?" />
-        <Hyperlink text="Регистрация" onAction="#switchToRegister" />
+    <stylesheets>
+        <URL value="@styles/login.css" />
+    </stylesheets>
+
+    <Text fx:id="loginTitle" text="Вход в аккаунт" styleClass="title"/>
+
+    <Label fx:id="errorLabel" styleClass="error-label"/>
+
+    <TextField fx:id="loginField" promptText="Ваш логин..."/>
+
+    <PasswordField fx:id="loginPassword" promptText="Введите пароль..."/>
+
+    <Button fx:id="loginButton" text="Войти"
+            onAction="#login" styleClass="login-button"/>
+
+    <TextFlow styleClass="text-flow">
+        <Text text="Нет аккаунта? " />
+        <Hyperlink text="Регистрация" onAction="#switchToRegister" styleClass="hyperlink"/>
     </TextFlow>
+
 </VBox>

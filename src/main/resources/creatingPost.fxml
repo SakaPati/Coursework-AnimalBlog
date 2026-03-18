@@ -6,29 +6,44 @@
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Text?>
+<?import java.net.URL?>
+
+<?import javafx.scene.layout.HBox?>
 <VBox xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1"
-      fx:controller="io.github.fozeton.blog.controllers.CreatingPost"
-      stylesheets="@styles/creatingPost.css">
+      fx:controller="client.io.github.fozeton.blog.controllers.CreatingPost"
+      styleClass="root-container">
 
-    <Text fx:id="title" text="Создай новый пост"/>
-    <Label fx:id="errorLabel" textFill="red"/>
+    <stylesheets>
+        <URL value="@styles/creatingPost.css" />
+    </stylesheets>
 
-    <Text fx:id="heroTitle" text="Заголовок"/>
-    <TextField fx:id="titleInput"/>
+    <HBox maxWidth="400">
+        <Button text="← Отмена" onAction="#goBack" styleClass="back-button"/>
+    </HBox>
 
-    <StackPane fx:id="imageContainer">
-        <VBox fx:id="uploadPlaceholder">
-            <ImageView fx:id="iconView">
-                <Image url="static/icons/selectedPhoto.png"/>
+    <Text fx:id="title" text="Создай новый пост" styleClass="main-title"/>
+
+    <Label fx:id="errorLabel" styleClass="error-message"/>
+
+    <VBox spacing="5" styleClass="input-group">
+        <Text fx:id="heroTitle" text="Заголовок" styleClass="field-label"/>
+        <TextField fx:id="titleInput" promptText="Придумайте название..."/>
+    </VBox>
+
+    <StackPane fx:id="imageContainer" styleClass="upload-zone">
+        <VBox fx:id="uploadPlaceholder" styleClass="placeholder-box">
+            <ImageView fx:id="iconView" fitHeight="48" fitWidth="48">
+                <Image url="@static/icons/selectedPhoto.png"/>
             </ImageView>
-            <Button fx:id="selectImageBtn" onAction="#selectedImage" text="Выбрать изображение"/>
+            <Button fx:id="selectImageBtn" onAction="#selectedImage" text="Выбрать изображение" styleClass="secondary-button"/>
         </VBox>
-
-        <ImageView fx:id="postPreview" preserveRatio="true" fitWidth="500" fitHeight="500"/>
+        <ImageView fx:id="postPreview" preserveRatio="true" fitWidth="400" fitHeight="300"/>
     </StackPane>
 
-    <Text fx:id="description" text="Описание"/>
-    <TextField fx:id="descriptionInput"/>
+    <VBox spacing="5" styleClass="input-group">
+        <Text fx:id="description" text="Описание" styleClass="field-label"/>
+        <TextField fx:id="descriptionInput" promptText="О чем этот пост?"/>
+    </VBox>
 
-    <Button fx:id="createPostBtn" onAction="#creatingPost" text="Создать пост"/>
+    <Button fx:id="createPostBtn" onAction="#creatingPost" text="Опубликовать" styleClass="submit-button"/>
 </VBox>

@@ -1,28 +1,33 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
+<?import java.net.URL?>
 
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.image.ImageView?>
-<?import javafx.scene.image.Image?>
-<?import javafx.scene.control.TextField?>
-<?import javafx.scene.control.ListView?>
 <BorderPane xmlns="http://javafx.com/javafx"
             xmlns:fx="http://javafx.com/fxml"
-            fx:controller="io.github.fozeton.blog.controllers.FeedController"
-            prefHeight="400.0" prefWidth="600.0">
+            fx:controller="client.io.github.fozeton.blog.controllers.FeedController"
+            prefHeight="600.0" prefWidth="400.0"
+            styleClass="main-layout">
+
+    <stylesheets>
+        <URL value="@styles/feed.css" />
+    </stylesheets>
+
     <top>
-        <HBox>
-            <Button>
+        <HBox styleClass="top-bar">
+            <Button onAction="#openMyProfile" styleClass="profile-button">
                 <graphic>
-                    <ImageView fx:id="profile"/>
+                    <ImageView fx:id="profile" fitHeight="35.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true"/>
                 </graphic>
             </Button>
 
-            <TextField fx:id="searchInput"/>
-            <Button onAction="#search">
+            <TextField fx:id="searchInput" promptText="Поиск постов..." HBox.hgrow="ALWAYS" styleClass="search-field"/>
+
+            <Button onAction="#search" styleClass="search-button">
                 <graphic>
-                    <ImageView fitWidth="15" fitHeight="15">
+                    <ImageView fitWidth="18" fitHeight="18">
                         <Image url="@static/icons/search.png"/>
                     </ImageView>
                 </graphic>
@@ -31,7 +36,7 @@
     </top>
 
     <center>
-        <ListView fx:id="feedList"/>
+        <ListView fx:id="feedList" styleClass="feed-list"/>
     </center>
 
 </BorderPane>

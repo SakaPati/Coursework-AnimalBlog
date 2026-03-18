@@ -1,0 +1,98 @@
+.root-container {
+    -fx-background-color: #FFFFFF;
+    -fx-alignment: center;
+    -fx-spacing: 20;
+    -fx-padding: 30;
+}
+
+.main-title {
+    -fx-font-family: "Segoe UI", SansSerif;
+    -fx-font-size: 24px;
+    -fx-font-weight: bold;
+    -fx-fill: #333333;
+}
+
+.input-group {
+    -fx-max-width: 400;
+}
+
+.field-label {
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+    -fx-fill: #666666;
+}
+
+.text-field {
+    -fx-pref-height: 40;
+    -fx-background-color: #F4F4F4;
+    -fx-background-radius: 8;
+    -fx-border-color: #E0E0E0;
+    -fx-border-radius: 8;
+    -fx-padding: 0 10 0 10;
+}
+
+.text-field:focused {
+    -fx-background-color: #FFFFFF;
+    -fx-border-color: #32CD32;
+    -fx-border-width: 2;
+}
+
+.upload-zone {
+    -fx-min-width: 400;
+    -fx-min-height: 250;
+    -fx-max-width: 400;
+    -fx-background-color: #FAFAFA;
+    -fx-border-color: #D3D3D3;
+    -fx-border-style: dashed;
+    -fx-border-width: 2;
+    -fx-border-radius: 12;
+    -fx-background-radius: 12;
+}
+
+.placeholder-box {
+    -fx-alignment: center;
+    -fx-spacing: 15;
+}
+
+.secondary-button {
+    -fx-background-color: #E8F5E9;
+    -fx-text-fill: #2E7D32;
+    -fx-font-weight: bold;
+    -fx-cursor: hand;
+    -fx-background-radius: 20;
+}
+
+.secondary-button:hover {
+    -fx-background-color: #C8E6C9;
+}
+
+.submit-button {
+    -fx-background-color: #32CD32;
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-font-size: 16px;
+    -fx-pref-width: 400;
+    -fx-pref-height: 45;
+    -fx-background-radius: 8;
+    -fx-cursor: hand;
+}
+
+.submit-button:hover {
+    -fx-background-color: #2eb82e;
+}
+
+.error-message {
+    -fx-font-size: 12px;
+}
+
+.back-button {
+    -fx-background-color: transparent;
+    -fx-text-fill: #999999;
+    -fx-font-size: 14px;
+    -fx-cursor: hand;
+    -fx-padding: 0 0 10 0;
+}
+
+.back-button:hover {
+    -fx-text-fill: #32CD32;
+}

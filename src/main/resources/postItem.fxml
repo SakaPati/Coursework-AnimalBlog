@@ -4,58 +4,63 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
-<?import javafx.scene.text.Text?>
+<?import javafx.scene.text.*?>
+<?import java.net.URL?>
 <VBox xmlns="http://javafx.com/javafx"
       xmlns:fx="http://javafx.com/fxml"
-      fx:controller="io.github.fozeton.blog.controllers.PostItemController"
-      spacing="10" prefWidth="400.0"
-      style="-fx-background-color: white; -fx-border-color: #dbdbdb; -fx-border-width: 0 0 1 0;">
+      fx:controller="client.io.github.fozeton.blog.controllers.PostItemController"
+      spacing="12"
+      alignment="TOP_CENTER"
+      styleClass="post-container"
+      maxWidth="760">
+
+    <stylesheets>
+        <URL value="@styles/postItem.css"/>
+    </stylesheets>
 
     <padding>
-        <Insets bottom="10.0" left="0.0" right="0.0" top="10.0"/>
+        <Insets bottom="18.0" left="18.0" right="18.0" top="18.0"/>
     </padding>
 
-    <HBox alignment="CENTER_LEFT" spacing="10">
-        <padding>
-            <Insets left="10.0" right="10.0"/>
-        </padding>
-        <ImageView fx:id="userAvatar" fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
-        </ImageView>
-        <Text fx:id="postAuthor" style="-fx-font-weight: bold; -fx-font-size: 14px;"/>
+    <HBox alignment="CENTER" spacing="10" styleClass="post-header">
+        <ImageView fx:id="userAvatar"
+                   fitHeight="40.0" fitWidth="40.0"
+                   pickOnBounds="true" preserveRatio="true"
+                   onMouseClicked="#openUserProfile"/>
+        <Text fx:id="postAuthor" styleClass="post-author" onMouseClicked="#openUserProfile"/>
     </HBox>
-    <Text fx:id="postTitle" style="-fx-font-weight: bold;"/>
 
-    <VBox alignment="CENTER" style="-fx-background-color: #fafafa;">
-        <ImageView fx:id="postImage" pickOnBounds="true" preserveRatio="true" fitWidth="400.0"/>
-    </VBox>
+    <Text fx:id="postTitle" styleClass="post-title" wrappingWidth="700.0" textAlignment="CENTER"/>
 
-    <Text fx:id="postContent" wrappingWidth="380.0"/>
+    <StackPane styleClass="post-image-container">
+        <ImageView fx:id="postImage" pickOnBounds="true" preserveRatio="true"/>
+    </StackPane>
 
-    <VBox spacing="5">
-        <padding>
-            <Insets left="10.0" right="10.0"/>
-        </padding>
+    <Text fx:id="postContent" styleClass="post-content" wrappingWidth="700.0" textAlignment="CENTER"/>
 
-        <HBox spacing="10" alignment="CENTER_LEFT">
-            <Text fx:id="postLikeCount" />
-            <Button onAction="#handleLikeClick" style="-fx-background-color: transparent; -fx-padding: 0;">
+    <HBox alignment="CENTER" spacing="30" styleClass="post-actions">
+        <HBox alignment="CENTER" spacing="8">
+            <Text fx:id="postLikeCount" styleClass="stats-text"/>
+            <Button onAction="#handleLikeClick" styleClass="icon-button">
                 <graphic>
-                    <ImageView fx:id="postLike" fitHeight="24.0" fitWidth="24.0">
+                    <ImageView fx:id="postLike" fitHeight="22.0" fitWidth="22.0">
                         <Image url="@static/icons/like.png"/>
-                    </ImageView>
-                </graphic>
-            </Button>
-            <Text fx:id="postCommentCount" />
-            <Button fx:id="postComment" style="-fx-background-color: transparent; -fx-padding: 0;">
-                <graphic>
-                    <ImageView fitHeight="24.0" fitWidth="24.0">
-                        <Image url="@static/icons/comment.png"/>
                     </ImageView>
                 </graphic>
             </Button>
         </HBox>
 
-        <VBox fx:id="commentsContainer" spacing="3"/>
-    </VBox>
+        <HBox alignment="CENTER" spacing="8">
+            <Text fx:id="postCommentCount" styleClass="stats-text"/>
+            <Button fx:id="postComment" onAction="#openCommentsFeed" styleClass="icon-button">
+                <graphic>
+                    <ImageView fitHeight="22.0" fitWidth="22.0">
+                        <Image url="@static/icons/comment.png"/>
+                    </ImageView>
+                </graphic>
+            </Button>
+        </HBox>
+    </HBox>
 
+    <VBox fx:id="commentsContainer" spacing="6" styleClass="comments-container"/>
 </VBox>

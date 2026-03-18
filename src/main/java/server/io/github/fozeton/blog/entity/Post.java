@@ -1,0 +1,49 @@
+package server.io.github.fozeton.blog.entity;
+
+import jakarta.persistence.*;
+import lombok.AccessLevel;
+import lombok.Getter;
+import lombok.Setter;
+
+import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
+
+@Getter
+@Setter
+@Entity
+@Table(name = "posts")
+public class Post {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Setter(AccessLevel.NONE)
+    @Column(updatable = false)
+    private Long id;
+
+    @Column(name = "userAvatar", nullable = false)
+    private String userAvatar = "defaultAccountAvatar.png";
+
+    @Column(name = "title", nullable = false)
+    private String title;
+
+    @Column(name = "author", nullable = false)
+    private String author;
+
+    @Column(nullable = false)
+    private String imageUrl;
+
+    @Column(columnDefinition = "TEXT")
+    private String content;
+
+    @Setter(AccessLevel.NONE)
+    @OneToMany(mappedBy = "post", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Like> likes = new ArrayList<>();
+
+    @Setter(AccessLevel.NONE)
+    @OneToMany(mappedBy = "post", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Comment> comments = new ArrayList<>();
+
+    @Setter(AccessLevel.NONE)
+    @Column(updatable = false)
+    private LocalDateTime createAt = LocalDateTime.now();
+}

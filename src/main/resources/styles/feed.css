@@ -1,0 +1,98 @@
+.main-layout {
+    -fx-background-color: #FAFAFA;
+}
+
+.top-bar {
+    -fx-alignment: center-left;
+    -fx-spacing: 12;
+    -fx-padding: 12 20 12 20;
+    -fx-background-color: #FFFFFF;
+    -fx-border-color: #E6E6E6;
+    -fx-border-width: 0 0 1 0;
+}
+
+.profile-button {
+    -fx-background-color: transparent;
+    -fx-padding: 0;
+    -fx-cursor: hand;
+}
+
+.profile-button:hover {
+    -fx-opacity: 0.8;
+}
+
+.search-field {
+    -fx-background-color: #F4F4F4;
+    -fx-background-radius: 20;
+    -fx-border-radius: 20;
+    -fx-border-color: #E0E0E0;
+    -fx-padding: 8 15 8 15;
+    -fx-font-size: 14px;
+}
+
+.search-field:focused {
+    -fx-background-color: #FFFFFF;
+    -fx-border-color: #32CD32;
+    -fx-border-width: 1;
+}
+
+.search-button {
+    -fx-background-color: #32CD32;
+    -fx-background-radius: 50;
+    -fx-min-width: 36;
+    -fx-min-height: 36;
+    -fx-max-width: 36;
+    -fx-max-height: 36;
+    -fx-cursor: hand;
+}
+
+.search-button:hover {
+    -fx-background-color: #2eb82e;
+}
+
+.feed-list {
+    -fx-background-color: transparent;
+    -fx-padding: 20 0 20 0;
+}
+
+.feed-list .list-cell {
+    -fx-background-color: transparent;
+    -fx-padding: 12 0 12 0;
+    -fx-alignment: CENTER;
+}
+
+.feed-list .list-cell:filled:hover {
+    -fx-background-color: transparent;
+}
+
+.feed-list .list-cell:filled:selected {
+    -fx-background-color: transparent;
+}
+
+.list-cell > .post-container {
+    -fx-max-width: 720;
+    -fx-alignment: center;
+}
+
+.scroll-bar:vertical {
+    -fx-background-color: transparent;
+    -fx-pref-width: 6;
+}
+
+.scroll-bar:vertical .track {
+    -fx-background-color: transparent;
+}
+
+.scroll-bar:vertical .thumb {
+    -fx-background-color: #D0D0D0;
+    -fx-background-radius: 10;
+}
+
+.scroll-bar:vertical .thumb:hover {
+    -fx-background-color: #B8B8B8;
+}
+.scroll-bar .increment-button,
+.scroll-bar .decrement-button {
+    -fx-opacity: 0;
+    -fx-padding: 0;
+}
